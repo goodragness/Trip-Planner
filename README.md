@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -44,3 +45,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+=======
+# Trip-Planner
+The project is called Trip Planner. It helps people to plan their trip to the destination according to their requirement and preferences. This can make life of the travellers really easy by not worrying about making the best itenary and investing a lot of time in it
+>>>>>>> 20be14d3e9656a14ed158f5ae41435554019673f
