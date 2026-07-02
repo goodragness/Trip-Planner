@@ -1,3 +1,8 @@
+
+// have to add the dotenv file so that backend can access the environment variables from the .env file.
+require("dotenv").config();
+
+
 const express = require("express");
 const cors = require("cors");
 
