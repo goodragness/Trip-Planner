@@ -1,5 +1,6 @@
 import React from 'react';
 import {useState} from "react";
+import SelectCitiesPage from "./Select_cities_page";
 
 function HomePage() {
 
@@ -7,27 +8,34 @@ function HomePage() {
     const [destination , setDestination] = React.useState('');
     const [startDate , setStartDate] = React.useState('');
     const [endDate , setEndDate] = React.useState('');
+    // creating a new state helping us to render or open the select teh cities page:
+    const [showSelectCitiesPage , setShowSelectCitiesPage] = React.useState(false);
+
+    if (showSelectCitiesPage) {
+        return <SelectCitiesPage destination={destination} startDate={startDate} endDate={endDate}/>;
+    }
 
     const handlePlanTrip = async() => {
         // send the request to the backend with the destination and travel dates
         // for now, just log the values to the console
-        try {
-            const response = await fetch('http://localhost:5001/api/cities', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    destination: destination,
-                    start_date: startDate,
-                    end_date: endDate
-                })
-            });
-            const data = await response.json();
-            console.log(data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
+        // try {
+        //     const response = await fetch('http://localhost:5001/api/cities', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             destination: destination,
+        //             start_date: startDate,
+        //             end_date: endDate
+        //         })
+        //     });
+        //     const data = await response.json();
+        //     console.log(data);
+        // } catch (error) {
+        //     console.error('Error:', error);
+        // }
+        setShowSelectCitiesPage(true);
     }
   return (
     <div>
