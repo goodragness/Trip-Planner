@@ -15,6 +15,7 @@ function SelectCitiesPage() {
     const {destination , startDate , endDate} = location.state ||{};
     const [cities , setCities] = react.useState<string[]>([]);
 
+
     console.log("destination:", destination);
     console.log("startDate:", startDate);
     console.log("endDate:", endDate);
@@ -61,6 +62,7 @@ function SelectCitiesPage() {
                     </div>
                 ))}
             </div>
+
 
         {/*    adding a button navigating to the next pages to select the travel type*/}
             <div className={"navigating button"}>

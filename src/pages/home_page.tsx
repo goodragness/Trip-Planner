@@ -53,7 +53,7 @@ function HomePage() {
       onChange={(e)=> setDestination(e.target.value)}/>
 
 
-    {/*    asking for travel dates (from to to */}
+    {/*    asking for travel dates (from  to */}
         <h1>Duration of travel</h1>
         <p>Please enter your travel dates to start planning your trip.</p>
         <input type="date" placeholder="Enter start date"

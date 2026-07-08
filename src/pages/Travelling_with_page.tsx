@@ -1,9 +1,15 @@
 import react from 'react';
 import {useState} from "react"
+import {useLocation , useNavigate} from "react-router-dom";
+
 function TravellingWithPage(){
 //     a constant that will store the travel type
 //     and how many people the person is traveling with
     const [travelGroup , setTravelGroup] = useState<string>();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const {destination , startDate , endDate , cities , selectedTravelTypes ,
+    totalBudget , accomodationBudget , commuteBudget} = location.state|| {};
 
 //     getting all the types of travel groups the person can go with:
     const travelGroups = [
@@ -43,6 +49,10 @@ function TravellingWithPage(){
                     checked={travelGroup === group}
                     id={`travel-group-${index}`}
                     onChange={()=>handleTravelGroupChange(group)}/>
+                {/*    adding the label text to each radio button*/}
+                    <label htmlFor={`travel-group-${index}`}>
+                        {group}
+                    </label>
                 </div>)}
             </div>
         </div>
