@@ -1,18 +1,22 @@
 import React from 'react';
 import {useState} from "react";
 import SelectCitiesPage from "./Select_cities_page";
+import {useLocation , useNavigate} from "react-router-dom";
 
 function HomePage() {
+    const location = useLocation();
+    const navigate = useNavigate();
 
-  //   in the home page, i need ways to store data now.
+  //   in the home pages, i need ways to store data now.
     const [destination , setDestination] = React.useState('');
     const [startDate , setStartDate] = React.useState('');
     const [endDate , setEndDate] = React.useState('');
-    // creating a new state helping us to render or open the select teh cities page:
+    // creating a new state helping us to render or open the select teh cities pages:
     const [showSelectCitiesPage , setShowSelectCitiesPage] = React.useState(false);
 
     if (showSelectCitiesPage) {
-        return <SelectCitiesPage destination={destination} startDate={startDate} endDate={endDate}/>;
+        return <SelectCitiesPage
+        />;
     }
 
     const handlePlanTrip = async() => {
@@ -35,7 +39,11 @@ function HomePage() {
         // } catch (error) {
         //     console.error('Error:', error);
         // }
-        setShowSelectCitiesPage(true);
+        navigate("/select-cities" , { state: {
+                destination,
+                startDate,
+                endDate,
+            },});
     }
   return (
     <div>

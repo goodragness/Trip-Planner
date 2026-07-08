@@ -1,11 +1,15 @@
 import react from 'react';
 import {useState} from "react";
 import SelectCitiesPage from "./Select_cities_page";
+import { useLocation, useNavigate } from "react-router-dom";
 
-function TravelType({destination , startDate , endDate , cities}:{destination:String , startDate:String , endDate:String , cities:String[]}){
+function TravelType(){
+    const location = useLocation();
+    const navigate = useNavigate()
 //      storing all the necessary data.
     const [SelectedTravelTypes , setSelectedTravelTypes] = react.useState<string[]>([]);
-
+    // {destination , startDate , endDate , cities}
+    const {destination , startDate , endDate , cities} = location.state||{};
 
 
     const allTravelType = [
@@ -32,6 +36,10 @@ function TravelType({destination , startDate , endDate , cities}:{destination:St
             setSelectedTravelTypes([...SelectedTravelTypes , type])
         }
     }
+//     creating a function that will help to navigate to teh Travelling_with_page;
+    function gotToTravellingWithPage(){
+        navigate("/Travelling-with-page")
+    }
 
 
 //     returning the content fo the file which needs to be rendered.
@@ -53,9 +61,9 @@ function TravelType({destination , startDate , endDate , cities}:{destination:St
                     <label htmlFor={`travel-type-${index}`}>{type}</label>
                 </div>)}
             </div>
-        {/*    making a new div to get a button leading to the next page. */}
+        {/*    making a new div to get a button leading to the next pages. */}
             <div>
-                <button>Next</button>
+                <button onClick={gotToTravellingWithPage}>Next</button>
             </div>
         </div>
     )

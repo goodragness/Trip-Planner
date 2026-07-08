@@ -1,6 +1,6 @@
 import react from 'react';
 import {useState} from "react"
-function Travelling_with_page(){
+function TravellingWithPage(){
 //     a constant that will store the travel type
 //     and how many people the person is traveling with
     const [travelGroup , setTravelGroup] = useState<string>();
@@ -20,15 +20,15 @@ function Travelling_with_page(){
 //     making a function that can help us to actually make changes to the travel
 //     group variable.
 //     a function which will actually help to add user's input on the frontend and
-//     on the html page of the website to the above defined variable.
+//     on the html pages of the website to the above defined variable.
     const handleTravelGroupChange = (group:string)=>{
         setTravelGroup(group);
     }
 
-//     returning what I wena tto render on th ehtml page.
+//     returning what I wena tto render on th ehtml pages.
     return (
         <div>
-        {/*    getting the heading of the page*/}
+        {/*    getting the heading of the pages*/}
             <div className={"page_headings"}>
                 <h1>What's your travelling group type:</h1>
             </div>
@@ -48,3 +48,5 @@ function Travelling_with_page(){
         </div>
     )
 }
+
+export default TravellingWithPage

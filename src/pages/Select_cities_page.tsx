@@ -1,19 +1,29 @@
 import react, {useEffect} from 'react';
 import TravelType from "./Travel_Type";
+import { useLocation, useNavigate } from "react-router-dom";
 
-// the vision of hte page:
+// the vision of hte pages:
 // I want to display 4-5 main tourist attraction of the destination country.
 // out of which they can seleect
 // also, a searach bar giving them the freedom to add cities of their choice.
 
-function SelectCitiesPage({destination , startDate , endDate}:{destination:string , startDate:string , endDate:string}) {
+function SelectCitiesPage() {
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    // adding values to the local storage:
+    const {destination , startDate , endDate} = location.state ||{};
     const [cities , setCities] = react.useState<string[]>([]);
 
-    // variable which will help us to navigate to the Travel_Type page. on setting it to true,
-    // we can navigate to the next page.
-    const [Travel_Type_page , setTravel_Type_Page] = react.useState(false);
+    console.log("destination:", destination);
+    console.log("startDate:", startDate);
+    console.log("endDate:", endDate);
 
-    // making a function that will get the list of cities from the backend and display them on the page.
+    // variable which will help us to navigate to the Travel_Type pages. on setting it to true,
+    // we can navigate to the next pages.
+    // const [Travel_Type_page , setTravel_Type_Page] = react.useState(false);
+
+    // making a function that will get the list of cities from the backend and display them on the pages.
     useEffect(() => {
         const fetchCities = async () => {
             try {
@@ -33,16 +43,16 @@ function SelectCitiesPage({destination , startDate , endDate}:{destination:strin
         }; fetchCities().then(r => console.log("cities fetched successfully"));
     }, [destination]);
 
-    // making a function that will help to navigate to the Travel_Type page.
-    if(Travel_Type_page){
-        return <TravelType  cities={cities}  destination={destination}
-                            startDate={startDate}  endDate = {endDate}/>
+    // making a function that will help to navigate to the Travel_Type pages.
+    function goToTravelType(){
+        navigate("/Travel-Type");
     }
+
     return (
         <div>
             <h1>Select Cities</h1>
             <p>Please select the cities you want to visit during your trip.</p>
-        {/*    display th elist of al lthe cities I want to travel to  */}
+        {/*    display the list of all the cities I want to travel to  */}
             <div className={"cities-list"}>
                 {cities.map((city, index) => (
                     <div key={index} className={"city-item"}>
@@ -52,9 +62,9 @@ function SelectCitiesPage({destination , startDate , endDate}:{destination:strin
                 ))}
             </div>
 
-        {/*    adding a button navigating to the next page to select the travel type*/}
+        {/*    adding a button navigating to the next pages to select the travel type*/}
             <div className={"navigating button"}>
-                <button onClick={()=> setTravel_Type_Page(true)}>
+                <button onClick={goToTravelType}>
                     Next
                 </button>
             </div>
