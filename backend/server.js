@@ -28,9 +28,7 @@ app.get("/", (req, res) => {
 
 // the above code is a simple route that sends a response to the frontend when the user visits the root url of the backend and requests something.
 
-app.listen(5001, () => {
-    console.log("Server is running on port 5001");
-});
+
 //the above code tells the server to listen on port 5000 and when the server is running, it will log a message to the console.
 
 //adding a messager between groq and the server helping the server to communicate iwth groq.
@@ -81,4 +79,58 @@ app.post("/api/cities", async (req, res) => {
     }
     })
 
+// making a new communication endpointn for groq.
+// to send the request to groq to build the itenerary and recieve it to this point.
+// making a post route(communication endpoint at backend which will recieve mg, data form the frontend
+// and it will send the data or prompt to groq).
 
+app.post("/api/generate-itenerary" , async(req , res)=>
+    {
+        try{
+            const {
+                destination , startDate , endDate , cities , selectedTravelTypes ,
+                totalBudget , accomodationBudget , commuteBudget
+            } = req.body;
+            const completion = await groq.chat.completions.create({
+            //     stating the AI model which we intend to use.
+            model:"llama-3.1-8b-instant",
+            //     the body consits of 2 messages.
+            //     the first one telling the role of the AI (how the AI is suppose to behave)
+            //     the second one is the actuall prompt we will be sending over to AI.
+            messages : [
+                {
+                    role:"system",
+                    content: "You are a travel assistant that provides information about cities and destinations."
+                },
+                {
+                    role:"user",
+                    content: `I am travelling to ${destination} from ${startDate} to ${endDate}
+                    and travelling to all the following cities:
+                    ${cities}. Build me a complete Itenerary of things I 
+                    can do from the first day to the end of the trip. 
+                    all the things which I can do in teh morning, afternoono and in the evening. 
+                    But the thing is that I need to cover al lthe main highlights and important
+                    things which I can't miss if I am visiting the place
+                    and also, the entiere trip needs to fit in the budget. 
+                    the total budget of my trip is ${totalBudget} but out of the total
+                    budget, I am spending ${accomodationBudget} on accomodation
+                    and ${commuteBudget} on going to the country and coming back.
+                    so the total ammount I wanna spend while am travelling is 
+                    the ${totalBudget}- [${accomodationBudget}+ ${commuteBudget}]`
+                }
+            ], max_tokens : 1500,
+            });
+            res.json({
+                message:completion.choices[0].message.content
+            });
+        }
+        catch(error){
+            console.error(error);
+            res.status(500).json({error: "An error occurred while fetching data from Groq."});
+        }
+    }
+)
+
+app.listen(5001, () => {
+    console.log("Server is running on port 5001");
+});

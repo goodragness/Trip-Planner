@@ -14,6 +14,7 @@ function SelectCitiesPage() {
     // adding values to the local storage:
     const {destination , startDate , endDate} = location.state ||{};
     const [cities , setCities] = react.useState<string[]>([]);
+    const [selectedCities , setSelectedCities] = react.useState<string[]>([]);
 
 
     console.log("destination:", destination);
@@ -25,28 +26,76 @@ function SelectCitiesPage() {
     // const [Travel_Type_page , setTravel_Type_Page] = react.useState(false);
 
     // making a function that will get the list of cities from the backend and display them on the pages.
+
+    // a function helping to create a list of all the selected cities.
+    function handleAddCities(city:string){
+        if(selectedCities.includes(city)){
+            setSelectedCities(
+                selectedCities.filter(selectedCities => selectedCities != city)
+            )
+        }
+        else {
+            setSelectedCities([...selectedCities , city]);
+        }
+    }
     useEffect(() => {
         const fetchCities = async () => {
-            try {
-                const response = await fetch(`http://localhost:5001/api/cities` , {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body:JSON.stringify({destination: destination}),
-                    })
-                ;
-                const data = await response.json();
-                setCities(data.message.split("\n"));
-            } catch {
-                console.error("Error fetching cities");
+            if (!destination) {
+                console.error("Destination is missing:", destination);
+                return;
             }
-        }; fetchCities().then(r => console.log("cities fetched successfully"));
-    }, [destination]);
 
+            try {
+                const response = await fetch(
+                    "http://localhost:5001/api/cities",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            destination
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Backend request failed: ${response.status}`
+                    );
+                }
+
+                const data = await response.json();
+
+                console.log("Backend city response:", data);
+
+                if (!data.message) {
+                    throw new Error("The backend response has no message");
+                }
+
+                const fetchedCities = data.message
+                    .split("\n")
+                    .map((city: string) => city.trim())
+                    .filter((city: string) => city !== "");
+
+                console.log("Processed city list:", fetchedCities);
+
+                setCities(fetchedCities);
+            } catch (error) {
+                console.error("Error fetching cities:", error);
+            }
+        };
+
+        fetchCities();
+    }, [destination]);
     // making a function that will help to navigate to the Travel_Type pages.
     function goToTravelType(){
-        navigate("/Travel-Type");
+        navigate("/Travel-Type" , {state:{
+            destination,
+            startDate,
+            endDate,
+            cities:selectedCities
+            }});
     }
 
     return (
@@ -57,7 +106,8 @@ function SelectCitiesPage() {
             <div className={"cities-list"}>
                 {cities.map((city, index) => (
                     <div key={index} className={"city-item"}>
-                        <input type="checkbox" id={`city-${index}`} name={`city-${index}`} value={city}/>
+                        <input type="checkbox" id={`city-${index}`} name={`city-${index}`} value={city}
+                        checked={selectedCities.includes(city)} onChange = {()=> handleAddCities(city)}/>
                         <label htmlFor={`city-${index}`}>{city}</label>
                     </div>
                 ))}
