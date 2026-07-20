@@ -2,6 +2,7 @@ import react from 'react';
 import {useState} from "react";
 import SelectCitiesPage from "./Select_cities_page";
 import { useLocation, useNavigate } from "react-router-dom";
+import "../App.css";
 
 // todo: Aim for tomorrow:
 //      try to send the information to Groq and get a complete itenerary.

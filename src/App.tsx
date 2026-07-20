@@ -6,6 +6,7 @@ import SelectCitiesPage from './pages/Select_cities_page';
 import TravelType from './pages/Travel_Type';
 import TravellingWithPage from './pages/Travelling_with_page'
 import IteneraryOptionsPage from "./pages/Itenerary_Options_Page";
+import FullItineraryPage from "./pages/Full_Itenerary_Page";
 
 
 //todo: the first goal is to build the home pages
@@ -22,6 +23,7 @@ function App() {
                   <Route path="/travel-type" element={<TravelType />} />
                   <Route path="/Travelling-with-page" element={<TravellingWithPage/>} />
                   <Route path="/Itenerary-Options-page" element={<IteneraryOptionsPage/>}/>
+                  <Route path="/itinerary/:id" element={<FullItineraryPage/>}/>
               </Routes>
           </div>
       </BrowserRouter>

@@ -1,0 +1,16 @@
+Creating the databsae for hte project snad connecting it to the project
+
+Flow of the process:
+✅ Create Supabase project
+✅ Add URL & Publishable Key
+✅ Create Supabase client
+⬜ Test the connection
+⬜ Create profiles table
+⬜ Create trips table
+⬜ Create itineraries table
+⬜ Enable RLS
+⬜ Add policies
+⬜ Build the sign-up page
+⬜ Build the login page
+⬜ Save trips
+⬜ Save AI-generated itineraries

@@ -1,6 +1,7 @@
 import react, {useEffect} from 'react';
 import TravelType from "./Travel_Type";
 import { useLocation, useNavigate } from "react-router-dom";
+import "../App.css";
 
 // the vision of hte pages:
 // I want to display 4-5 main tourist attraction of the destination country.

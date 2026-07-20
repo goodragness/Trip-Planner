@@ -1,6 +1,7 @@
 import react, {useEffect} from 'react';
 import {useState} from "react"
 import {useLocation , useNavigate} from "react-router-dom";
+import "../App.css";
 
 function TravellingWithPage(){
 //     a constant that will store the travel type

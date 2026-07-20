@@ -2,6 +2,8 @@ import React from 'react';
 import {useState} from "react";
 import SelectCitiesPage from "./Select_cities_page";
 import {useLocation , useNavigate} from "react-router-dom";
+import "../App.css";
+
 
 function HomePage() {
     const location = useLocation();
@@ -71,6 +73,7 @@ function HomePage() {
   );
 
 //   it's time to send the request.
+
 
 }
 
